@@ -4,8 +4,7 @@ A production-grade multi-agent system where three specialized LLM agents
 (Planner → Executor → Reviewer) collaborate in a pipeline to solve complex 
 technical decision queries.
 
-**Course:** LLMOps @ Northeastern University  
-**Student:** Xiaoying Bao  
+
 **Current Status:** Week 3 — Full pipeline complete (Planner → Executor → Reviewer)
 
 ---
