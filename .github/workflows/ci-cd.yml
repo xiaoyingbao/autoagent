@@ -23,7 +23,7 @@ jobs:
       - name: Run tests
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          DATABASE_URL: sqlite:///./test.db
+          DATABASE_URL: sqlite+aiosqlite:///./test.db
           REDIS_URL: redis://localhost:6379/0
         run: pytest tests/ -v --tb=short
 
@@ -52,6 +52,5 @@ jobs:
           tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/autoagent:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
 
           
