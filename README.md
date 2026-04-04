@@ -106,9 +106,6 @@ Monitoring: Cloud Monitoring dashboard                 ✅ NEW
 3. Show **GCP Console → Cloud Run** — live request count, latency metrics, instance scaling
 4. Show **GitHub Actions** — CI/CD auto-deployed the latest Docker image to Cloud Run
 
-**Demo Script:**
-
-*"This week I deployed AutoAgent to GCP Cloud Run. Unlike last week where everything ran locally, the system is now live on Google's infrastructure. I'm submitting a query directly to the Cloud Run URL — you can see the Planner, Executor, and Reviewer Agents running in the cloud, with results logged to Cloud SQL. The Cloud Monitoring dashboard shows real-time request count and latency. Every push to GitHub automatically builds a new Docker image and deploys it to Cloud Run — fully automated."*
 
 ---
 
