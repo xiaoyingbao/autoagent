@@ -66,7 +66,7 @@ jobs:
           image: us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/autoagent/autoagent:${{ github.sha }}
           env_vars: |
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
-            DATABASE_URL=postgresql+asyncpg://autoagent:autoagent123@/autoagent?host=/cloudsql/${{ secrets.GCP_PROJECT_ID }}:us-west1:autoagent-db
+            DATABASE_URL=sqlite+aiosqlite:///./autoagent.db
             REDIS_URL=redis://localhost:6379/0
 
             
