@@ -34,10 +34,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Log in to Google Container Registry
+      - name: Log in to Artifact Registry
         uses: docker/login-action@v2
         with:
-          registry: gcr.io
+          registry: us-west1-docker.pkg.dev
           username: _json_key
           password: ${{ secrets.GCP_SA_KEY }}
 
@@ -46,7 +46,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: gcr.io/${{ secrets.GCP_PROJECT_ID }}/autoagent:${{ github.sha }}
+          tags: us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/autoagent/autoagent:${{ github.sha }}
 
   deploy:
     needs: build
@@ -63,11 +63,10 @@ jobs:
         with:
           service: autoagent
           region: us-west1
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/autoagent:${{ github.sha }}
+          image: us-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/autoagent/autoagent:${{ github.sha }}
           env_vars: |
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             DATABASE_URL=postgresql+asyncpg://autoagent:autoagent123@/autoagent?host=/cloudsql/${{ secrets.GCP_PROJECT_ID }}:us-west1:autoagent-db
             REDIS_URL=redis://localhost:6379/0
-
 
             
