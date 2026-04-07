@@ -1,4 +1,4 @@
-# Week 5 Status Update
+# Week 6 Status Update
 
 ## 1. Project Summary
 
@@ -14,17 +14,17 @@
 | Week 2 | Planner Agent + basic Executor Agent | ✅ Done |
 | Week 3 | Full Executor + Reviewer Agent + end-to-end pipeline | ✅ Done |
 | Week 4 | Redis task queue + Docker + CI/CD via GitHub Actions | ✅ Done |
-| Week 5 | GCP Cloud Run deployment + monitoring | ✅ Done ← Current |
-| Week 6 | Streamlit UI + demo preparation | 🔲 Upcoming |
+| Week 5 | GCP Cloud Run deployment + monitoring | ✅ Done |
+| Week 6 | Streamlit UI + demo preparation | ✅ Done ← Current |
 | Week 7 | Final Demo | 🔲 Upcoming |
 
-**Recent Updates (Week 5):**
-- Deployed containerized application to **GCP Cloud Run** using Docker image from GCR
-- Configured **Cloud SQL (PostgreSQL)** as production database on GCP
-- Set up **GCP Secret Manager** for secure API key management
-- Enabled CI/CD auto-deploy to Cloud Run on every push to main
-- Added **Cloud Monitoring** dashboard tracking request count, latency, and error rate
-- Configured health check endpoint for Cloud Run startup probe
+**Recent Updates (Week 6):**
+- Built **Streamlit UI** — interactive frontend for the AutoAgent pipeline
+- UI displays Planner subtasks, Executor results per subtask, and Reviewer final answer in real time
+- Connected Streamlit frontend to the live GCP Cloud Run API endpoint
+- Added quality score visualization and pipeline execution timeline
+- Prepared and rehearsed final demo script end-to-end
+- Updated README with live deployment URL and Streamlit setup instructions
 
 ---
 
@@ -42,14 +42,15 @@
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                   User / Client                      │
+│              Streamlit UI              ✅ NEW        │
+│     (Interactive frontend for demo)                  │
 └──────────────────────┬──────────────────────────────┘
-                       │ HTTPS
+                       │ HTTP POST /query
 ┌──────────────────────▼──────────────────────────────┐
-│           GCP Cloud Run (FastAPI)          ✅ NEW    │
+│           GCP Cloud Run (FastAPI)                    │
 │         Auto-scaling · HTTPS · Managed               │
 └──────────────────────┬──────────────────────────────┘
-                       │ enqueue task
+                       │
 ┌──────────────────────▼──────────────────────────────┐
 │          Redis Task Queue (Celery Broker)            │
 └───────┬──────────────────────────┬──────────────────┘
@@ -63,12 +64,9 @@
                         └──────────┬─────────────────┘
                                    │
                         ┌──────────▼─────────────────┐
-                        │  Cloud SQL (PostgreSQL)     │  ✅ NEW
+                        │  Cloud SQL (PostgreSQL)     │
                         │  Logs · Metrics · History   │
                         └────────────────────────────┘
-
-CI/CD: GitHub Actions → GCR → Cloud Run auto-deploy   ✅ NEW
-Monitoring: Cloud Monitoring dashboard                 ✅ NEW
 ```
 
 ---
@@ -87,35 +85,31 @@ Monitoring: Cloud Monitoring dashboard                 ✅ NEW
 | Task Queue | Redis + Celery | ✅ Async pipeline (Week 4) |
 | Containerization | Docker + Docker Compose | ✅ Full stack (Week 4) |
 | CI/CD | GitHub Actions | ✅ test → build → deploy (Week 5) |
-| Container Registry | Google Container Registry | ✅ Image pushed (Week 5) |
 | Cloud Deployment | GCP Cloud Run | ✅ Live (Week 5) |
 | Database | Cloud SQL (PostgreSQL) | ✅ Production DB (Week 5) |
-| Monitoring | GCP Cloud Monitoring | ✅ Dashboard set up (Week 5) |
-| Frontend UI | Streamlit | 🔲 Planned (Week 6) |
+| Monitoring | GCP Cloud Monitoring | ✅ Dashboard (Week 5) |
+| Frontend UI | Streamlit | ✅ Implemented (Week 6) |
 
 ---
 
 ## 5. Technical Demo
 
-**Demo Topic:** Live Cloud Deployment — AutoAgent Running on GCP Cloud Run
+**Demo Topic:** Full End-to-End Demo — Streamlit UI + Live Cloud Deployment
 
-**What to show:**
-
-1. Open the live **Cloud Run URL** in the browser — show the app is running on GCP (not localhost)
-2. Submit a query via the live Swagger UI (`/docs`) — demonstrate the full pipeline running in the cloud
-3. Show **GCP Console → Cloud Run** — live request count, latency metrics, instance scaling
-4. Show **GitHub Actions** — CI/CD auto-deployed the latest Docker image to Cloud Run
+1. Open **Streamlit UI** — show the clean input interface
+2. Submit a complex technical query — show real-time pipeline execution
+3. Walk through each section: Planner subtasks → Executor results → Reviewer final answer + quality score
+4. Show the live **GCP Cloud Run URL** — emphasize this is running on the cloud, not locally
+5. Show **GitHub Actions** — CI/CD all green, auto-deployed
 
 
 ---
 
-## 6. Plan for Next Week (Week 6)
+## 6. Plan for Next Week (Week 7)
 
-- Build **Streamlit UI** — input field for user query, real-time display of Planner subtasks, Executor results, and Reviewer final answer
-- Connect Streamlit frontend to the live Cloud Run API endpoint
-- Polish UI for final demo presentation
-- Prepare **final demo script** and rehearse end-to-end walkthrough
-- Update README with live deployment URL and demo instructions
+- Final demo presentation — full end-to-end walkthrough
+- Demonstrate complete system: Streamlit UI → Cloud Run API → Multi-Agent Pipeline → Cloud SQL
+- Highlight key technical decisions and lessons learned
 
 ---
 
@@ -123,8 +117,7 @@ Monitoring: Cloud Monitoring dashboard                 ✅ NEW
 
 | Issue | Risk Level | Mitigation |
 |-------|-----------|------------|
-| Cloud SQL connection from Cloud Run | Medium | Use Cloud SQL Auth Proxy connector |
-| OpenAI API cost in production | Low | GPT-4o-mini + $5 usage limit |
-| Cloud Run cold start latency | Low | Minimum 1 instance configured to avoid cold starts |
-| Redis on GCP (Memorystore cost) | Medium | Use Redis Labs free tier as alternative |
-| Solo workload management | Low | On track, two weeks remaining |
+| OpenAI API cost | Low | GPT-4o-mini + $5 usage limit |
+| Cloud Run cold start | Low | Minimum 1 instance configured |
+| Demo network reliability | Low | Screenshots prepared as backup |
+| Solo workload | Low | Project complete, final week is presentation only |
